@@ -3,6 +3,7 @@ require 'pry'
 require './lib/employee'
 require './lib/division'
 require './lib/project'
+require './lib/assignment'
 
 database_configurations = YAML::load(File.open('./db/config.yml'))
 development_configuration = database_configurations['development']
