@@ -71,7 +71,7 @@ end
 
 def list_employees
   puts "Employees:"
-  Employee.all.each {|employee| puts "#{employee.name}"}
+  Employee.all.each {|employee| puts "Name: #{employee.name}               Projects:  #{employee.projects.map { |project| project.name}.join(", ") }"}
 end
 
 def search
@@ -119,6 +119,7 @@ def assign_project
   list_projects
   project = Project.where(:name => gets.chomp).first
   employee.projects << project
+  binding.pry
 end
 
 def show_employees
