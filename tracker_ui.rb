@@ -21,6 +21,7 @@ end
 def menu
   puts "AE > Add an employee"
   puts "LE > List employees"
+  puts "EP > List employees by project"
   ws
   puts "AD > Add a division"
   puts "LD > List divisions"
@@ -40,6 +41,8 @@ def menu
     add_employee
   when 'LE'
     list_employees
+  when 'EP'
+    employees_by_project
   when 'AD'
     add_division
   when 'LD'
@@ -71,7 +74,15 @@ end
 
 def list_employees
   puts "Employees:"
-  Employee.all.each {|employee| puts "Name: #{employee.name}               Projects:  #{employee.projects.map { |project| project.name}.join(", ") }"}
+  Employee.all.each { |employee| puts "Name: #{employee.name}               Projects:  #{employee.projects.map { |project| project.name}.join(", ") }"}
+end
+
+def employees_by_project
+  puts "Which project do you want to view?"
+  list_projects
+  project = Project.where(:name => gets.chomp).first
+  puts "Employes in #{project.name}:"
+  project.employees.each { |employee| puts employee.name }
 end
 
 def search
@@ -87,7 +98,7 @@ end
 
 def list_divisions
   puts "Divisions:"
-  Division.all.each {|division| puts "#{division.name}"}
+  Division.all.each { |division| puts "#{division.name}" }
 end
 
 def assign_division
@@ -108,7 +119,7 @@ end
 
 def list_projects
   puts "Projects:"
-  Project.all.each {|project| puts "#{project.name}"}
+  Project.all.each { |project| puts "#{project.name}" }
 end
 
 def assign_project
@@ -126,6 +137,6 @@ def show_employees
   puts "Enter a division to list employees in that division"
   list_divisions
   division = Division.where(:name => gets.chomp).first
-  division.employees.each {|employee| puts employee.name}
+  division.employees.each { |employee| puts employee.name }
 end
 welcome
